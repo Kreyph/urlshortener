@@ -1,3 +1,8 @@
 spring:
   application:
     name: urlshortener
+  profiles:
+    active: dev
+logging:
+  level:
+    root: INFO
