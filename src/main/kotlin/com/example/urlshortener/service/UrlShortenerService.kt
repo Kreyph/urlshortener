@@ -4,6 +4,7 @@ import com.example.urlshortener.dto.UrlMappingDTO
 import com.example.urlshortener.entity.UrlMapping
 import com.example.urlshortener.exception.NotFoundException
 import com.example.urlshortener.repository.UrlMappingRepository
+import com.example.urlshortener.util.ShortCodeGenerator
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
@@ -12,7 +13,8 @@ import kotlin.random.Random
 
 @Service
 class UrlShortenerService(
-    private val urlMappingRepository: UrlMappingRepository
+    private val urlMappingRepository: UrlMappingRepository,
+    private val shortCodeGenerator: ShortCodeGenerator
 ) {
 
     @Value("\${app.shortUrlBase:http://localhost:8080}")
@@ -43,18 +45,9 @@ class UrlShortenerService(
     private fun generateUniqueShortUrlCode(length: Int): String {
         var shortCode: String
         do {
-            shortCode = generateShortUrlCode(length)
+            shortCode = shortCodeGenerator.generateShortCode(length)
         } while (urlMappingRepository.existsByShortCode(shortCode))
         return shortCode
-    }
-
-    private fun generateShortUrlCode(length: Int): String {
-        val stringBuilder = StringBuilder()
-        for (i in 0 until length) {
-            val randomIndex = Random.nextInt(alphabet.length)
-            stringBuilder.append(alphabet[randomIndex])
-        }
-        return stringBuilder.toString()
     }
 
     fun buildShortUrl(shortCode: String): String =
