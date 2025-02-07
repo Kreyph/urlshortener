@@ -1,7 +1,7 @@
 package com.example.urlshortener
 
 import com.example.urlshortener.dto.UrlMappingDTO
-import com.example.urlshortener.service.UrlMappingService
+import com.example.urlshortener.service.UrlShortenerService
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.ApplicationContext
@@ -14,10 +14,12 @@ fun main(args: Array<String>) {
 
 	val context: ApplicationContext = runApplication<UrlshortenerApplication>(*args)
 
-	val urlMappingService = context.getBean(UrlMappingService::class.java)
+	val urlMappingService = context.getBean(UrlShortenerService::class.java)
 	val urlMappingDTO = UrlMappingDTO (
 		longUrl = "https://www.google.com/"
 	)
 	val urlMapping = urlMappingService.createLongToShortUrlMapping(urlMappingDTO);
 	println(urlMappingService.buildShortUrl(urlMapping.shortCode))
+
+
 }

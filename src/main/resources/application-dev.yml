@@ -15,3 +15,6 @@ spring:
 logging:
   level:
     org.springframework.cache: DEBUG
+app:
+  shortUrlBase: http://localhost:8080
+  shortCodeLength: 6

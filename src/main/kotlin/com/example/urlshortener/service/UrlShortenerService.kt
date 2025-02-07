@@ -3,21 +3,26 @@ package com.example.urlshortener.service
 import com.example.urlshortener.dto.UrlMappingDTO
 import com.example.urlshortener.entity.UrlMapping
 import com.example.urlshortener.repository.UrlMappingRepository
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import kotlin.random.Random
 
 @Service
-class UrlMappingService(private val urlMappingRepository: UrlMappingRepository) {
+class UrlShortenerService(private val urlMappingRepository: UrlMappingRepository) {
 
+    @Value("\${app.shortUrlBase:http://localhost:8080}")
     private val baseUrl: String = "http://localhost:8080"
+
+    @Value("\${app.shortCodeLength:6}")
     private val shortCodeLength: Int = 6
+
     private val alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
     @Transactional
     fun createLongToShortUrlMapping(urlMappingDTO: UrlMappingDTO): UrlMapping {
 
-        val shortCode: String = generateShortUrlCode(shortCodeLength)
+        val shortCode: String = generateUniqueShortUrlCode(shortCodeLength)
 
         val urlMapping = UrlMapping(
             shortCode = shortCode,
@@ -26,7 +31,16 @@ class UrlMappingService(private val urlMappingRepository: UrlMappingRepository) 
         return urlMappingRepository.save(urlMapping)
     }
 
+    fun getMapping(shortCode: String): UrlMapping =
+        urlMappingRepository.findByShortCode(shortCode)
 
+    private fun generateUniqueShortUrlCode(length: Int): String {
+        var shortCode: String
+        do {
+            shortCode = generateShortUrlCode(length)
+        } while (urlMappingRepository.existsByShortCode(shortCode))
+        return shortCode
+    }
 
     private fun generateShortUrlCode(length: Int): String {
         val stringBuilder = StringBuilder()

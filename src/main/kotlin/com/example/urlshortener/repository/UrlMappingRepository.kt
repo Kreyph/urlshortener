@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface UrlMappingRepository : JpaRepository<UrlMapping, Long> {
+    fun existsByShortCode(shortCode: String): Boolean
+    fun findByShortCode(shortCode: String): UrlMapping
 }
