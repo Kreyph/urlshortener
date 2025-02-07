@@ -11,7 +11,7 @@ data class UrlMapping (
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long = 0,
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     val shortCode: String,
 
     @Column(nullable = false)
