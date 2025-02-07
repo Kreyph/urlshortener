@@ -1,4 +1,23 @@
 package com.example.urlshortener.entity
 
-class UrlMapping {
-}
+import jakarta.persistence.*
+import java.time.LocalDateTime
+
+@Entity
+@Table(name="url_mappings")
+data class UrlMapping (
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    val id: Long = 0,
+
+    @Column(nullable = false)
+    val shortCode: String,
+
+    @Column(nullable = false)
+    val longUrl: String,
+
+    @Column(nullable = false)
+    val createdAt: LocalDateTime = LocalDateTime.now()
+
+)
