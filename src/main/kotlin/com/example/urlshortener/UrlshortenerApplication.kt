@@ -10,16 +10,5 @@ import org.springframework.context.ApplicationContext
 class UrlshortenerApplication
 
 fun main(args: Array<String>) {
-//	runApplication<UrlshortenerApplication>(*args)
-
-	val context: ApplicationContext = runApplication<UrlshortenerApplication>(*args)
-
-	val urlMappingService = context.getBean(UrlShortenerService::class.java)
-	val urlMappingDTO = UrlMappingDTO (
-		longUrl = "https://www.google.com/"
-	)
-	val urlMapping = urlMappingService.createLongToShortUrlMapping(urlMappingDTO);
-	println(urlMappingService.buildShortUrl(urlMapping.shortCode))
-
-
+	runApplication<UrlshortenerApplication>(*args)
 }
