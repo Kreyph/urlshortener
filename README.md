@@ -1,19 +1,19 @@
 # Code Assignment: URL Shortener
 
-This is a URL shortener implemented with Kotlin and Spring Boot. It provides a REST API for shortening URLs and a resolution mechanism to redirects users to the original URL.
+This is a REST API URL shortener, implemented with Kotlin and Spring Boot.
 
-## Usage
+## Overview
 
 - **Create Short URL:**  
-  `POST /api/urls` accepts a JSON payload with the original URL and returns a simple response with the full URL in the location header.
+  `POST /api/urls` accepts the original URL and returns the full URL in the location header of the response.
 - **Redirect to the Original URL:**  
-  `GET /{shortCode}` redirects the client to the original URL.
-- **Responses, Validation & Exception Handling:**  
-  Basic exception handling is implemented to cover some common error cases (like an invalid URL provided or a non-existing shortened URL requested).
+  `GET /{shortCode}` redirects the client to the original URL when an existing shortened code is provided.
+- **Error Handling:**  
+  Provides basic exception handling to cover a few common error cases.
 - **Profiles and Configuration:**  
-  The necessary properties for the dev and the prod environments are provided, and they could be overridden and externalised by other configurations (e.g. Docker).
-- **Scalability and further considerations:**
-    - **Caching:** caches the URLs resolutions with Spring; the production strategy has to be defined at a later point, possibly with Redis.
+  Provides the properties for the dev environment to work - the prod configuration would be overridden and externalised by other configurations (e.g. Docker, production DB, etc.)
+- **Caching:**  
+Caches the URLs resolutions with Spring; the production strategy has to be defined at a later point.
 
 ## Getting Started
 
@@ -33,5 +33,5 @@ This is a URL shortener implemented with Kotlin and Spring Boot. It provides a R
 
 1. **Clone the Repository:**
    ```bash
-   git clone <repository-url>
-   cd url-shortener
+   git clone https://github.com/Kreyph/urlshortener.git
+   cd urlshortener
