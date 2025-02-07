@@ -5,6 +5,7 @@ import com.example.urlshortener.entity.UrlMapping
 import com.example.urlshortener.exception.NotFoundException
 import com.example.urlshortener.repository.UrlMappingRepository
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import kotlin.random.Random
@@ -34,6 +35,7 @@ class UrlShortenerService(
         return urlMappingRepository.save(urlMapping)
     }
 
+    @Cacheable("urlMappings")
     fun getMapping(shortCode: String): UrlMapping =
         urlMappingRepository.findByShortCode(shortCode)
             ?: throw NotFoundException("No URL resolution found with $shortCode as short code.")

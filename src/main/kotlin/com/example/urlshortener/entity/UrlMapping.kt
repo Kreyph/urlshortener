@@ -1,6 +1,7 @@
 package com.example.urlshortener.entity
 
 import jakarta.persistence.*
+import java.io.Serializable
 import java.time.LocalDateTime
 
 @Entity
@@ -20,4 +21,4 @@ data class UrlMapping (
     @Column(nullable = false)
     val createdAt: LocalDateTime = LocalDateTime.now()
 
-)
+) : Serializable

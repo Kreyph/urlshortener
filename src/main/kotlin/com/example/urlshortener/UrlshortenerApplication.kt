@@ -1,12 +1,11 @@
 package com.example.urlshortener
 
-import com.example.urlshortener.dto.UrlMappingDTO
-import com.example.urlshortener.service.UrlShortenerService
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.context.ApplicationContext
+import org.springframework.cache.annotation.EnableCaching
 
 @SpringBootApplication
+@EnableCaching
 class UrlshortenerApplication
 
 fun main(args: Array<String>) {

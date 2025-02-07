@@ -4,6 +4,8 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password:
+  cache:
+    type: simple
   jpa:
     hibernate:
       ddl-auto: update
