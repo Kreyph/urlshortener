@@ -1,10 +1,19 @@
 package com.example.urlshortener.controller
 
-import org.springframework.web.bind.annotation.RestController
+import com.example.urlshortener.service.UrlShortenerService
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.servlet.view.RedirectView
 
-@RestController
-class UrlResolutionController {
+@Controller
+class UrlResolutionController(
+    private val urlShortenerService: UrlShortenerService
+) {
 
-//    GET -> client gives the short URL, we fetch the original one mapped to it and return it
-
+    @GetMapping("/{shortCode}")
+    fun redirectToOriginalUrl(@PathVariable shortCode: String): RedirectView {
+        val mapping = urlShortenerService.getMapping(shortCode)
+        return RedirectView(mapping.longUrl)
+    }
 }
