@@ -8,13 +8,9 @@ class ShortCodeGenerator {
 
     private val alphabet: String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
-    fun generateShortCode(length: Int): String {
-        val stringBuilder = StringBuilder()
-        for (i in 0 until length) {
-            val randomIndex = Random.nextInt(alphabet.length)
-            stringBuilder.append(alphabet[randomIndex])
-        }
-        return stringBuilder.toString()
-    }
+    fun generateShortCode(length: Int): String =
+        (1..length)
+            .map { alphabet.random() }
+            .joinToString("")
 
 }
